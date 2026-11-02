@@ -1,12 +1,15 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
+import os
 
+# Botun niyetlerini (intents) tanımlıyoruz
 intents = discord.Intents.default()
 intents.message_content = True
 intents.guilds = True
-intents.members = True 
+intents.members = True # Kullanıcı bilgilerini çekmek için gerekli
 
+# Botu başlatıyoruz, komut ön eki "!"
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
@@ -114,5 +117,5 @@ async def kullanici_bilgi(ctx, user_id: int):
     except Exception as e:
         await ctx.send(f"❌ Bir hata oluştu: {e}")
 
-# BOT TOKEN'INI BURAYA YAPIŞTIR (Tırnak işaretlerini silme)
-bot.run("")
+# BOT TOKEN'INI BURAYA YAZMIYORUZ! Render'daki Environment Variable'dan okuyacak.
+bot.run(os.getenv("DISCORD_TOKEN"))
